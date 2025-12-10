@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildirimler – El'den</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ORTAK HEADER -->
+<header class="satici-header">
+    <a href="satici_anasayfa.html" class="logo"><span class="logo-text">el'den</span></a>
+    <nav class="satici-nav">
+        <a href="satici_anasayfa.html">Anasayfa</a>
+        <a href="satici.html">Ürün Ekle</a>
+        <a href="bildirimler.html">Bildirimler</a>
+        <a href="profil.html">Profil</a>
+        <a href="#" onclick="cikisYap()">Çıkış Yap</a>
+    </nav>
+</header>
+
+<h1 style="text-align:center; margin-top:40px;">Bildirimlerim</h1>
+
+<div id="liste" class="bildirim-container"></div>
+
+<script src="js/bildirim.js"></script>
+<script>
+function cikisYap(){
+    localStorage.removeItem("aktifKullanici");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siparişlerim – el'den</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            background: #f4f2ec;
+            font-family: Poppins, sans-serif;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 140px;
+            color: #281600;
+        }
+
+        .siparis-kutu {
+            background: white;
+            padding: 20px;
+            margin: 15px auto;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .siparis-kutu h3 {
+            color: #7a5c3c;
+            margin-bottom: 8px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .geri-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 12px;
+            background: #281600;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ========== ORTAK HEADER ========== -->
+<header id="globalHeader">
+
+  <a class="logo" href="index.html">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+      stroke="#a16b3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22c-3-2-5-5-5-9V9.2a1.6 1.6 0 0 1 3.2 0v4" />
+        <path d="M12 22c3-2 5-5 5-9V8.8a1.6 1.6 0 0 0-3.2 0V12" />
+        <path d="M12 22V7.8a1.6 1.6 0 0 1 3.2 0v4.2" />
+        <path d="M10 5c1-.5 2-.5 3 0" />
+        <path d="M11 3.5c.6-.3 1.2-.3 1.8 0" />
+      </svg>
+      <span class="logo-text">el’den</span>
+  </a>
+
+  <div class="search-bar-modern">
+      <input type="text" placeholder="Ürün ara...">
+      <button></button>
+  </div>
+
+  <nav class="menu" id="menuArea"></nav>
+
+</header>
+
+
+<h1>Siparişlerim</h1>
+
+<div id="siparisListesi"></div>
+
+<a href="index.html" class="geri-btn">Ana Sayfaya Dön</a>
+
+<script src="js/auth.js"></script>
+
+<script>
+    // Aktif kullanıcıyı al
+    let aktif = JSON.parse(localStorage.getItem("aktifKullanici"));
+
+    // SATICI BU SAYFAYI GÖREMEZ
+    if (!aktif || aktif.rol !== "alici") {
+        alert("Bu sayfa yalnızca alıcılar içindir!");
+        window.location.href = "index.html";
+    }
+
+    // Tüm siparişleri al
+    let tumSiparisler = JSON.parse(localStorage.getItem("siparisKayitlari")) || [];
+
+    // Alıcıya göre filtrele
+    let benimSiparislerim = tumSiparisler.filter(s => s.kullanici === aktif.mail);
+
+    let div = document.getElementById("siparisListesi");
+
+    if (benimSiparislerim.length === 0) {
+        div.innerHTML = `
+            <p style="text-align:center; font-size:18px; color:#7a5c3c;">
+                Henüz siparişiniz bulunmamaktadır.
+            </p>
+        `;
+    } else {
+        benimSiparislerim.forEach((siparis, index) => {
+
+            let html = `
+                <div class="siparis-kutu">
+                    <h3>Sipariş ${index + 1}</h3>
+                    <p><strong>Tarih:</strong> ${siparis.tarih}</p>
+                    <p><strong>Ödeme Yöntemi:</strong> ${siparis.odeme}</p>
+                    <p><strong>Toplam Tutar:</strong> ${siparis.toplam} ₺</p>
+
+                    <h4>Ürünler:</h4>
+                    <ul>
+            `;
+
+            siparis.urunler.forEach(u => {
+                html += `<li>${u.ad} — ${u.adet} adet (${u.fiyat} ₺)</li>`;
+            });
+
+            html += `
+                    </ul>
+                </div>
+            `;
+
+            div.innerHTML += html;
+        });
+    }
+</script>
+
+</body>
+</html>

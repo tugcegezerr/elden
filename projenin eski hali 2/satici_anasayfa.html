@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=devicewidth, initial-scale=1.0">
+    <title>Satıcı Anasayfa – El'den</title>
+
+    <!-- Genel site CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Satıcıya özel CSS -->
+    <link rel="stylesheet" href="css/style_satici.css">
+</head>
+
+<body>
+
+<!-- =============================
+       SATICI HEADER
+============================= -->
+<header class="satici-header">
+    <a href="satici_anasayfa.html" class="logo">
+        <span class="logo-text">el'den</span>
+    </a>
+
+    <nav class="satici-nav">
+        <a onclick="location.reload()">Anasayfa</a>
+        <a onclick="popupAc('popupUrunEkle')">Ürün Ekle</a>
+        <a onclick="bildirimleriGoster()">Bildirimler</a>
+        <a onclick="profilGoster()">Profil</a>
+        <a onclick="cikisYap()">Çıkış Yap</a>
+    </nav>
+</header>
+
+
+<!-- =============================
+       HERO (Alıcı ile aynı)
+============================= -->
+<div class="ana-foto">
+    Satıcı Paneli
+</div>
+
+
+<!-- =============================
+       KATEGORİLER (Alicı ile aynı)
+============================= -->
+<div class="kategoriler">
+  <div class="kategori" onclick="kategoriFiltre('Ev Yemekleri')">
+      <img src="resimler/evyemekleri.jpg"><p>Ev Yemekleri</p>
+  </div>
+
+  <div class="kategori" onclick="kategoriFiltre('El İşleri')">
+      <img src="resimler/elisleri.jpg"><p>El İşleri</p>
+  </div>
+
+  <div class="kategori" onclick="kategoriFiltre('Organik')">
+      <img src="resimler/organik.jpg"><p>Organik Ürünler</p>
+  </div>
+
+  <div class="kategori" onclick="kategoriFiltre('Tatlılar')">
+      <img src="resimler/tatli.jpg"><p>Tatlılar</p>
+  </div>
+</div>
+
+
+<!-- =============================
+     SADECE SATICININ ÜRÜNLERİ
+============================= -->
+<h2 id="urun-listesi-baslik" style="text-align:center;margin-top:20px;">Ürünleriniz</h2>
+<div class="urunler" id="urun-listesi"></div>
+
+
+<!-- =============================
+       POPUP ARKA & KUTULARI
+============================= -->
+<div id="popupArka" class="popup-arka" style="display:none;"></div>
+
+<!-- ÜRÜN EKLE POPUP -->
+<div id="popupUrunEkle" class="popup-kutu" style="display:none;">
+    <span class="kapat" onclick="popupKapat()">&times;</span>
+    <h2>Ürün Ekle</h2>
+
+    <input id="pAd" type="text" placeholder="Ürün adı">
+    <input id="pFiyat" type="number" placeholder="Fiyat">
+    <input id="pResimFile" type="file" accept="image/*">
+    <input id="pKategori" type="text" placeholder="Kategori">
+    <button onclick="popupUrunEkleKaydet()">Kaydet</button>
+</div>
+
+<!-- BİLDİRİMLER POPUP -->
+<div id="popupBildirim" class="popup-kutu" style="display:none;">
+    <span class="kapat" onclick="popupKapat()">&times;</span>
+    <h2>Bildirimler</h2>
+    <div id="popupBildirimListesi"></div>
+</div>
+
+<!-- PROFİL POPUP (DÜZENLENEBİLİR) -->
+<div id="popupProfil" class="popup-kutu" style="display:none;">
+    <span class="kapat" onclick="popupKapat()">&times;</span>
+    <h2>Profil Bilgileri</h2>
+
+    <label>Ad Soyad</label>
+    <input id="pAdSoyad" type="text">
+
+    <label>Mail</label>
+    <input id="pMail" type="email" disabled>
+
+    <label>Telefon</label>
+    <input id="pTelefon" type="text">
+
+    <label>Şifre</label>
+    <input id="pSifre" type="password">
+
+    <button onclick="profilKaydet()">Kaydet</button>
+</div>
+
+<!-- ÜRÜN DETAY POPUP -->
+<div id="popupUrunDetay" class="popup-kutu" style="display:none;">
+    <span class="kapat" onclick="popupKapat()">&times;</span>
+    <h2 id="detayBaslik">Ürün Detayı</h2>
+
+    <img id="detayResim" style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:10px;">
+
+    <p><strong>Fiyat:</strong> <span id="detayFiyat"></span> ₺</p>
+    <p><strong>Kategori:</strong> <span id="detayKategori"></span></p>
+    <p><strong>Malzemeler / İçerik:</strong></p>
+    <p id="detayAciklama"></p>
+
+    <button onclick="urunDetayDuzenle()">Düzenle</button>
+    <button onclick="urunDetaySil()" style="background:#c93d3d;margin-top:10px;">Sil</button>
+</div>
+
+<!-- ÜRÜN DÜZENLE POPUP -->
+<!-- ÜRÜN DÜZENLE POPUP -->
+<div id="popupUrunDuzenle" class="popup-kutu" style="display:none;">
+    <span class="kapat" onclick="popupKapat()">&times;</span>
+
+    <h2 style="text-align:center; margin-bottom: 20px;">Ürünü Düzenle</h2>
+
+    <div class="form-grup">
+        <label>Ad</label>
+        <input id="dAd" type="text">
+    </div>
+
+    <div class="form-grup">
+        <label>Fiyat (₺)</label>
+        <input id="dFiyat" type="number" min="0">
+    </div>
+
+    <div class="form-grup">
+        <label>Kategori</label>
+        <input id="dKategori" type="text">
+    </div>
+
+    <div class="form-grup">
+        <label>Malzemeler / İçerik</label>
+        <textarea id="dAciklama" rows="4"></textarea>
+    </div>
+
+    <div class="form-grup">
+        <label>Resim</label>
+        <input id="dResimFile" type="file" accept="image/*">
+        <img id="duzenleOnizleme" style="width:100%; margin-top:10px; border-radius:8px; display:none;">
+    </div>
+
+    <button class="kaydetBtn" onclick="urunGuncelle()">Kaydet</button>
+    <button class="silBtn" onclick="urunDetaySil()" style="background:#c93d3d;">Sil</button>
+</div>
+
+
+
+
+
+<!-- =============================
+       JAVASCRIPT DOSYALARI
+============================= -->
+<script src="js/urunler.js"></script>
+<script src="js/auth.js"></script>
+
+<script>
+/* POPUP AÇ - KAPAT */
+function popupAc(id) {
+    document.getElementById("popupArka").style.display = "block";
+    document.getElementById(id).style.display = "block";
+}
+
+function popupKapat() {
+    document.getElementById("popupArka").style.display = "none";
+    ["popupUrunEkle","popupBildirim","popupProfil"].forEach(id=>{
+        document.getElementById(id).style.display = "none";
+    });
+}
+
+/* ÜRÜN EKLE KAYDET */
+async function popupUrunEkleKaydet() {
+    let aktif = JSON.parse(localStorage.getItem("aktifKullanici"));
+    let liste = JSON.parse(localStorage.getItem("eTicaretUrunler")) || [];
+
+    let ad = pAd.value.trim();
+    let fiyat = Number(pFiyat.value);
+    let kategori = pKategori.value.trim();
+    let file = document.getElementById("pResimFile").files[0];
+
+    if (!ad || !fiyat || !kategori || !file) {
+        alert("Lütfen tüm alanları doldurun ve bir resim seçin.");
+        return;
+    }
+
+    // 🔥 Resmi Base64'e dönüştür
+    let resimBase64 = await resimToBase64(file);
+
+    // Yeni ürün oluştur
+    let urun = {
+        id: Date.now(),
+        ad,
+        fiyat,
+        kategori,
+        resim: resimBase64,     // ← seçilen dosya artık Base64 olarak burada!
+        saticiMail: aktif.mail
+    };
+
+    liste.push(urun);
+    localStorage.setItem("eTicaretUrunler", JSON.stringify(liste));
+
+    alert("Ürün eklendi!");
+    popupKapat();
+    location.reload();
+}
+
+
+/* BİLDİRİM POPUP */
+function bildirimleriGoster() {
+    let alan = document.getElementById("popupBildirimListesi");
+    alan.innerHTML = "<p>Şu anda bildiriminiz yok.</p>";
+    popupAc("popupBildirim");
+}
+
+/* PROFİL POPUP */
+function profilGoster() {
+    let aktif = JSON.parse(localStorage.getItem("aktifKullanici"));
+
+    document.getElementById("pAdSoyad").value = aktif.ad;
+    document.getElementById("pMail").value = aktif.mail;
+    document.getElementById("pTelefon").value = aktif.tel;
+    document.getElementById("pSifre").value = aktif.sifre;
+
+    popupAc("popupProfil");
+}
+
+function profilKaydet() {
+    let aktif = JSON.parse(localStorage.getItem("aktifKullanici"));
+
+    let ad = document.getElementById("pAdSoyad").value.trim();
+    let mail = document.getElementById("pMail").value.trim();
+    let tel = document.getElementById("pTelefon").value.trim();
+    let sifre = document.getElementById("pSifre").value.trim();
+
+    if (!ad || !mail || !tel || !sifre) {
+        alert("Lütfen tüm alanları doldurun.");
+        return;
+    }
+
+    // Eski mail anahtarındaki kaydı siliyoruz
+    localStorage.removeItem(aktif.mail);
+
+    // Yeni bilgileri kaydediyoruz
+    aktif.ad = ad;
+    aktif.mail = mail;
+    aktif.tel = tel;
+    aktif.sifre = sifre;
+
+    // Yeni mail anahtarıyla kayıt
+    localStorage.setItem(mail, JSON.stringify(aktif));
+
+    // Aktif kullanıcı kaydını güncelle
+    localStorage.setItem("aktifKullanici", JSON.stringify(aktif));
+
+    alert("Profil bilgileri güncellendi!");
+    popupKapat();
+    location.reload();
+}
+
+let seciliUrun = null;
+
+function urunDetayAc(id) {
+    let liste = JSON.parse(localStorage.getItem("eTicaretUrunler")) || [];
+    seciliUrun = liste.find(u => u.id === id);
+
+    document.getElementById("detayBaslik").textContent = seciliUrun.ad;
+    document.getElementById("detayResim").src = seciliUrun.resim;
+    document.getElementById("detayFiyat").textContent = seciliUrun.fiyat;
+    document.getElementById("detayKategori").textContent = seciliUrun.kategori;
+    document.getElementById("detayAciklama").textContent = seciliUrun.aciklama || "Bilgi eklenmemiş.";
+
+    popupAc("popupUrunDetay");
+}
+
+function urunDetayDuzenle() {
+    popupKapat();
+
+    document.getElementById("dAd").value = seciliUrun.ad;
+    document.getElementById("dFiyat").value = seciliUrun.fiyat;
+    document.getElementById("dKategori").value = seciliUrun.kategori;
+    document.getElementById("dAciklama").value = seciliUrun.aciklama || "";
+
+    popupAc("popupUrunDuzenle");
+}
+
+function urunDetaySil() {
+    if (!confirm("Bu ürünü silmek istiyor musunuz?")) return;
+
+    let liste = JSON.parse(localStorage.getItem("eTicaretUrunler")) || [];
+    liste = liste.filter(u => u.id !== seciliUrun.id);
+
+    localStorage.setItem("eTicaretUrunler", JSON.stringify(liste));
+
+    alert("Ürün silindi.");
+    popupKapat();
+    location.reload();
+}
+
+async function urunGuncelle() {
+    let liste = JSON.parse(localStorage.getItem("eTicaretUrunler")) || [];
+    let index = liste.findIndex(u => u.id === seciliUrun.id);
+
+    let yeniResim = liste[index].resim;
+    let file = document.getElementById("dResimFile").files[0];
+
+    if (file) {
+        yeniResim = await resimToBase64(file);
+    }
+
+    liste[index] = {
+        ...liste[index],
+        ad: document.getElementById("dAd").value,
+        fiyat: Number(document.getElementById("dFiyat").value),
+        kategori: document.getElementById("dKategori").value,
+        aciklama: document.getElementById("dAciklama").value,
+        resim: yeniResim,
+    };
+
+    localStorage.setItem("eTicaretUrunler", JSON.stringify(liste));
+
+    alert("Ürün güncellendi!");
+    popupKapat();
+    location.reload();
+}
+
+
+
+
+
+/* SAYFA AÇILINCA → SADECE KENDİ ÜRÜNLERİNİ LİSTELE */
+document.addEventListener("DOMContentLoaded", () => {
+    let aktif = JSON.parse(localStorage.getItem("aktifKullanici"));
+    let tumUrunler = JSON.parse(localStorage.getItem("eTicaretUrunler")) || [];
+
+    let liste = tumUrunler.filter(u => u.saticiMail === aktif.mail);
+
+    urunleriListele(liste);
+});
+
+
+
+</script>
+
+</body>
+</html>

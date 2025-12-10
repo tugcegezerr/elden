@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Ekle – El'den</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ORTAK HEADER -->
+<header class="satici-header">
+    <a href="satici_anasayfa.html" class="logo"><span class="logo-text">el'den</span></a>
+    <nav class="satici-nav">
+        <a href="satici_anasayfa.html">Anasayfa</a>
+        <a href="satici.html">Ürün Ekle</a>
+        <a href="bildirimler.html">Bildirimler</a>
+        <a href="profil.html">Profil</a>
+        <a href="#" onclick="cikisYap()">Çıkış Yap</a>
+    </nav>
+</header>
+
+<h1 style="text-align:center; margin-top:40px;">Yeni Ürün Ekle</h1>
+
+<div class="urun-ekle-panel">
+    <input id="urun-ad" type="text" placeholder="Ürün Adı">
+    <input id="urun-fiyat" type="number" placeholder="Fiyat (₺)">
+    <label>Ürün Resmi:</label>
+    <input id="urun-resim" type="file" accept="image/*">
+    <button onclick="urunEkle()">Ekle</button>
+</div>
+
+<h2 style="text-align:center;">Ürünlerim</h2>
+<div id="satici-urunleri" class="urunler"></div>
+
+<script src="js/urunler.js"></script>
+<script>
+function cikisYap(){
+    localStorage.removeItem("aktifKullanici");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

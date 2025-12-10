@@ -1,0 +1,220 @@
+/* =======================
+      SATICI HEADER
+======================= */
+.satici-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 85px;
+    padding: 0 40px;
+   
+
+
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.satici-header .logo {
+    font-size: 28px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #281600;
+}
+
+.satici-nav {
+    display: flex;
+    gap: 28px;
+    margin-right: 50px;
+}
+
+.satici-nav a {
+    color: #281600;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.satici-nav a:hover {
+    color: #8b5e34;
+}
+
+
+/* =======================
+        HERO
+======================= */
+
+.satici-hero {
+    margin-top: 85px;
+    width: 100%;
+    height: 260px;
+    background-image: url("https://images.unsplash.com/photo-1512058564366-c9e3e0464f40");
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.5);
+}
+
+.satici-hero h1 {
+    font-size: 40px;
+    margin: 0;
+}
+
+.satici-hero p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* =======================
+        POPUP
+======================= */
+
+.popup-arka {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+}
+
+.popup-kutu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background: #ffffff;
+    width: 90%;
+    max-width: 450px;
+
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+
+    z-index: 2100;
+}
+
+.popup-kutu h2 {
+    margin-top: 0;
+    text-align: center;
+    font-weight: 700;
+}
+
+.popup-kutu input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+.popup-kutu button {
+    width: 100%;
+    padding: 12px;
+    background: #281600;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.popup-kutu button:hover {
+    background: #3b2400;
+}
+
+/* =======================
+     ÜRÜN LİSTESİ
+======================= */
+
+.urunler {
+    margin-top: 40px;
+}
+
+/* Düzenleme popupını düzgün hizalamak için */
+#duzenleModal .modal-icerik {
+    width: 90%;
+    max-width: 480px !important;  /* GENİŞLETTİK */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;  /* Alanlar arası boşluk */
+}
+
+#duzenleModal .modal-icerik input,
+#duzenleModal .modal-icerik select,
+#duzenleModal .modal-icerik textarea {
+    width: 100% !important;
+    display: block;
+    box-sizing: border-box;
+}
+
+#duzenleModal img {
+    width: 100%;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+#duzenleModal button {
+    width: 100%;
+}
+
+/* FORM GRUP DÜZENİ */
+.form-grup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-grup label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-grup input,
+.form-grup textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background: #fafafa;
+}
+
+.kaydetBtn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #281600;
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+.kaydetBtn:hover {
+    background: #3b2400;
+}
+
+.silBtn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+}

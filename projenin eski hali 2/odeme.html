@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme – el'den</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            background: #f7f5ef;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .odeme-kutu {
+            width: 90%;
+            max-width: 500px;
+            margin: 140px auto 40px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #281600;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #281600;
+            color: #fff;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        .btn:hover {
+            background: #3b2400;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ========== ORTAK HEADER ========== -->
+<header id="globalHeader">
+
+  <a class="logo" href="index.html">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none"
+      stroke="#a16b3f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22c-3-2-5-5-5-9V9.2a1.6 1.6 0 0 1 3.2 0v4" />
+        <path d="M12 22c3-2 5-5 5-9V8.8a1.6 1.6 0 0 0-3.2 0V12" />
+        <path d="M12 22V7.8a1.6 1.6 0 0 1 3.2 0v4.2" />
+        <path d="M10 5c1-.5 2-.5 3 0" />
+        <path d="M11 3.5c.6-.3 1.2-.3 1.8 0" />
+      </svg>
+      <span class="logo-text">el’den</span>
+  </a>
+
+  <div class="search-bar-modern">
+      <input type="text" placeholder="Ürün ara...">
+      <button></button>
+  </div>
+
+  <nav class="menu" id="menuArea"></nav>
+
+</header>
+
+
+<div class="odeme-kutu">
+
+    <h2>Ödeme Bilgileri</h2>
+
+    <label>Adres</label>
+    <input type="text" id="adres" placeholder="Teslimat adresinizi yazınız">
+
+    <label>Ödeme Yöntemi</label>
+    <select id="odemeYontemi">
+        <option value="Kapıda Ödeme">Kapıda Ödeme</option>
+        <option value="Kredi Kartı">Kredi Kartı</option>
+        <option value="Banka Kartı">Banka Kartı</option>
+    </select>
+
+    <button class="btn" onclick="siparisiTamamla()">Siparişi Tamamla</button>
+
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/odeme.js"></script>
+
+<script>
+    // Alıcı dışında kimse giremesin
+    let aktif = JSON.parse(localStorage.getItem("aktifKullanici"));
+    if (!aktif || aktif.rol !== "alici") {
+        alert("Bu sayfa yalnızca alıcılar içindir.");
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>

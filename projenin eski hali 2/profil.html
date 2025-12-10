@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satıcı Profil – El'den</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ORTAK HEADER -->
+<header class="satici-header">
+    <a href="satici_anasayfa.html" class="logo"><span class="logo-text">el'den</span></a>
+    <nav class="satici-nav">
+        <a href="satici_anasayfa.html">Anasayfa</a>
+        <a href="satici.html">Ürün Ekle</a>
+        <a href="bildirimler.html">Bildirimler</a>
+        <a href="profil.html">Profil</a>
+        <a href="#" onclick="cikisYap()">Çıkış Yap</a>
+    </nav>
+</header>
+
+<div class="profil-kutu">
+    <h2>Profil Bilgilerim</h2>
+
+    <label>Ad Soyad</label>
+    <input id="ad">
+
+    <label>Telefon</label>
+    <input id="telefon">
+
+    <label>Adres</label>
+    <input id="adres">
+
+    <label>E-posta</label>
+    <input id="email" disabled>
+
+    <button onclick="kaydet()">Kaydet</button>
+</div>
+
+<script>
+function cikisYap(){
+    localStorage.removeItem("aktifKullanici");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
